@@ -5,7 +5,7 @@ process CTAT {
     conda "bioconda::ctat-mutations=2.1.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ctat-mutations:2.0.1--py27_4':
-        'biocontainers/ctat-mutations:2.0.1.11--py27_5' }"
+        'biocontainers/ctat-mutations:2.0.1--py27_4' }"
 
     input:
     tuple val(meta), path(left), path(right),
