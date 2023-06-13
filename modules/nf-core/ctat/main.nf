@@ -2,7 +2,7 @@ process CTAT {
     tag "$meta.id"
     label 'process_medium'
 
-    conda "bioconda::bioconda::ctat-mutations=2.1.0=2.1.0"
+    conda "bioconda::ctat-mutations=2.1.0=2.1.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ctat-mutations:2.0.1--py27_4':
         'biocontainers/ctat-mutations:2.0.1.11--py27_5' }"
