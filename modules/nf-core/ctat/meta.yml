@@ -14,7 +14,6 @@ tools:
       tool_dev_url: "https://github.com/NCIP/ctat-mutations"
       licence: "The Broad Institute"
 
-
 input:
   # Only when we have meta
   - meta:
@@ -23,31 +22,25 @@ input:
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
 
-
   - sample_id:
       type: string
       description: The sample id
       pattern: "*"
-
 
   - outputdir:
       type: string
       description: Name to be given to the directory in which CTAT-Mutation outputs will be placed.
       pattern: "*"
 
-
   - left:
       type: file
       description: Path to the location of the left (ie. /1) paired end RNA-Seq Fastq file.
       pattern: "*.fastq.gz"
 
-
   - right:
       type: file
       description: Path to the location of the right (ie, /2) paired end RNA-Seq Fastq file.
       pattern: "*.fastq.gz"
-
-
 
 output:
   #Only when we have meta
@@ -74,7 +67,7 @@ output:
 
   - cancer_variants:
       type: file
-      description:  The subset of variants that are considered most relevant to cancer biology
+      description: The subset of variants that are considered most relevant to cancer biology
       pattern: "*.vcf"
 
   - html:

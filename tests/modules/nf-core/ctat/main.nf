@@ -5,11 +5,19 @@ nextflow.enable.dsl = 2
 include { CTAT } from '../../../../modules/nf-core/ctat/main.nf'
 
 workflow test_ctat {
-    
-    input = [
-        [ id:'test', single_end:false ], // meta map
-        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
-    ]
 
+    input = [
+        [ id:'test' ], // meta map
+        [
+            file(params.test_data['homo_sapiens']['illumina']['test_umi_1_fastq_gz'], checkIfExists: true),
+            file(params.test_data['homo_sapiens']['illumina']['test_umi_2_fastq_gz'], checkIfExists: true)
+        ]
+    ]
+    //fasta_1  = file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true)
+    //fasta_2  = file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true)
+    //sample_id = '1234'
+    //outputdir = '/tmp/'
+
+    //CTAT ( fasta_1, fasta_2, sample_id, outputdir )
     CTAT ( input )
 }

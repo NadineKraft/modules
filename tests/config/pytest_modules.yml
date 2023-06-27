@@ -846,6 +846,10 @@ csvtk/split:
   - modules/nf-core/csvtk/split/**
   - tests/modules/nf-core/csvtk/split/**
 
+ctat:
+  - modules/nf-core/ctat/**
+  - tests/modules/nf-core/ctat/**
+
 custom/dumpsoftwareversions:
   - modules/nf-core/custom/dumpsoftwareversions/**
   - tests/modules/nf-core/custom/dumpsoftwareversions/**

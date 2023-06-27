@@ -8,9 +8,7 @@ process CTAT {
         'biocontainers/ctat-mutations:2.0.1--py27_4' }"
 
     input:
-    tuple val(meta), path(left), path(right),
-    val outputdir
-    val sample_id
+    tuple val(meta), path(left), path(right), val outputdir, val sample_id
 
 
     output:
@@ -28,16 +26,18 @@ process CTAT {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
 
+
     """
-      ctat \\
-        --left${fasta_1} \\
-        --rigth${fasta_2} \\
+      ctat_mutations \\
+        ${args} \\
+        --left ${fasta_1} \\
+        --rigth ${fasta_2} \\
         --sample_id \\
         --outputdir \\
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-       ctat : \$(echo \$(ctat --version 3>&1) | sed 's/^.*ctat //; s/Using.*\$//' ))
+        ctat: \$( echo \$(ctat_mutations --version 2>&1 | tr -d '[:cntrl:]' ) | sed -e 's/^.*Version: //;s/\\[.*\$//')
     END_VERSIONS
     """
 }
