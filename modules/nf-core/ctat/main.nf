@@ -2,13 +2,16 @@ process CTAT {
     tag "$meta.id"
     label 'process_medium'
 
-    conda "bioconda::ctat-mutations=2.1.0"
+    conda "bioconda::ctat-mutations=2.0.1"
+    //conda "bioconda/noarch::ctat-mutations-2.0.1-py27_1"
+
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ctat-mutations:2.0.1--py27_4':
         'biocontainers/ctat-mutations:2.0.1--py27_4' }"
 
     input:
-    tuple val(meta), path(left), path(right), val (outputdir), val (sample_id)
+    tuple val(meta), path(fasta_1), path(fasta_2)
+    //tuple val(meta), path(reads)
 
 
     output:
@@ -25,19 +28,26 @@ process CTAT {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def VERSION = '2.0.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+
+    //def sample_id = args.contains("--sample_id") ? "" : "--sample_id ${prefix}"
+    def outputdir = args.contains("--out_dir") ? "" : "--out_dir ${prefix}"
+
+
 
 
     """
     ctat_mutations \\
         --left ${fasta_1} \\
-        --rigth ${fasta_2} \\
-        --sample_id \\
-        --outputdir \\
+        --right ${fasta_2} \\
+        ${outputdir} \\
         ${args}
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        ctat: \$( echo \$(ctat_mutations --version 2>&1 | tr -d '[:cntrl:]' ) | sed -e 's/^.*Version: //;s/\\[.*\$//')
+        ctat_mutations: $VERSION
     END_VERSIONS
     """
+
 }

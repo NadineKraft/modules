@@ -15,17 +15,17 @@ tools:
       licence: "The Broad Institute"
 
 input:
-  # Only when we have meta
+   # Only when we have meta
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
 
-  - sample_id:
-      type: string
-      description: The sample id
-      pattern: "*"
+#  - sample_id:
+#      type: string
+#      description: The sample id
+#      pattern: "*"
 
   - outputdir:
       type: string
@@ -48,7 +48,7 @@ output:
       type: map
       description: |
         Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
+        e.g. [ id:'test']
 
   - versions:
       type: file
